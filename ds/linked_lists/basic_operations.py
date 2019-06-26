@@ -52,6 +52,82 @@ class LinkedList:
             temp.next = new_node
             break
 
+    def delete_node(self, data):
+        """
+        complexity: O(n)
+        best case: O(1) - deleting the head
+        worst case when deleting the last node
+        """
+        if not self.head:
+            return None
+        temp = self.head
+        prev = None
+        while(temp):
+            if temp.data != data:
+                prev = temp
+                temp = temp.next
+                continue
+            # if node to be deleted is the last one
+            if not temp.next:
+                prev.next = None
+                break
+            prev.next = temp.next
+            return
+
+    def delete_nth_node(self, n):
+        """
+        n: is the position of the node in the linked list
+        n is an indexed value i.e. begins from 0 to {(total number of nodes) - 1}
+        complexity: O(n)
+        best case: O(1) - where n = 0
+        worst case: deleting the last node
+        """
+        if not self.head:
+            # linked list is empty
+            return node
+        # base case
+        # delete first node
+        if n == 0:
+            # if there are more nodes
+            if self.head.next:
+                self.head = self.head.next
+                return
+            # if the node to be deleted is the only one
+            self.head = None
+            return
+        temp = self.head.next
+        prev = self.head
+        count = 1
+        while(temp):
+            if n == count:
+                # delete
+                prev.next = temp.next
+                return
+            prev = temp
+            temp = temp.next
+            count = count + 1
+            continue
+
+    def delete_all_nodes_iterative(self):
+        """
+        complexity: O(n)
+        best case: O(1) when the linked list has only one node
+        """
+        if not self.head:
+            return None
+        while(self.head):
+            if self.head.next:
+                # delete the head
+                self.head = self.head.next
+                continue
+            self.head = None
+
+    def delete_all_nodes_recursive(self):
+        if not self.head:
+            return None
+        self.head = self.head.next
+        return self.delete_all_nodes_recursive()
+
 node = Node(3)
 node2 = Node(4)
 node.next = node2
@@ -59,8 +135,31 @@ l = LinkedList()
 l.head = node
 # insert 6 at tail
 l.insert_tail(6)
-print(l.head.next.next.next.data)
+print(l.head.next.next.data)
+
+l.insert_tail(7)
+print("last ", l.head.next.next.next.data)
 
 # insert 5 after node 4
 l.insert_after(4, 5)
 print(l.head.next.next.next.data)
+
+# before deleting 4
+print(l.head.next.data)
+# delete node 4
+l.delete_node(7)
+print(l.head.next.data)
+
+# before deleting n = 2
+print("before delete nth: ", l.head.next.next.data)
+# delete the 3rd node; n = 2
+l.delete_nth_node(2)
+print("after delete nth: ", l.head.next.next.data)
+
+# print("Before delete all iterative: ", l.head.data)
+# l.delete_all_nodes_iterative()
+# print("After delete all iterative: ", l.head)
+
+# print("Before delete all recursive: ", l.head.data)
+# l.delete_all_nodes_recursive()
+# print("After delete all recursive: ", l.head)
