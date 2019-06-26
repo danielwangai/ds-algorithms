@@ -147,6 +147,28 @@ class LinkedList:
         count = 1 + self.get_size_recursively()
         return count
 
+    def search_iteratively(self, data):
+        """
+        complexity: O(n)
+        best case: O(1) if node being searched for is the the head
+        worst case: when finding the last node on the linked list
+        """
+        if not self.head:
+            return None
+        while(self.head != None):
+            if self.head.data == data:
+                return True
+            self.head = self.head.next
+        return False
+
+
+    def search_recursively(self, data):
+        if not self.head:
+            return False
+        if self.head.data == data:
+            return True
+        self.head = self.head.next
+        return self.search_recursively(data)
 
 node = Node(3)
 node2 = Node(4)
@@ -187,3 +209,6 @@ l.insert_tail(8)
 l.insert_tail(9)
 print("Size iteratively: ", l.get_size_iteratively())
 print("Size recursively>>: ", l.get_size_recursively())
+
+print("search iteratively: ", l.search_iteratively(9))
+print("search recursively: ", l.search_recursively(4))
