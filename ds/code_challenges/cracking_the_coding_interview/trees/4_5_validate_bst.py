@@ -22,4 +22,7 @@ def is_bst(node):
 
 x = Node(5)
 x.left = Node(4)
+x.right = Node(13)
+# x.left = Node(4)
+# x.left = Node(4)
 print(is_bst(x))
