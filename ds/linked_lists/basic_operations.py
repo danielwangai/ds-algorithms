@@ -170,11 +170,38 @@ class LinkedList:
         self.head = self.head.next
         return self.search_recursively(data)
 
+    def traverse(self):
+        """
+        go through each node once
+        complexity: O(n)
+        """
+        if not self.head:
+            return None
+        nodes = []
+        while(self.head):
+            nodes.append(self.head.data)
+            self.head = self.head.next
+        return nodes
+
+    def reverse_recursively(self, curr, prev):
+        if not curr.next:
+            self.head = curr
+            self.head.next = prev
+            return self.head
+        next = curr.next
+        curr.next = prev
+        return self.reverse_recursively(next, curr)
+
+
 node = Node(3)
 node2 = Node(4)
 node.next = node2
 l = LinkedList()
 l.head = node
+l.insert_head(8)
+l.insert_head(9)
+# print("traverse: ", l.traverse())
+# l.reverse_in_place_iterative()
 # insert 6 at tail
 # l.insert_tail(6)
 # print(l.head.next.next.data)
@@ -205,10 +232,18 @@ l.head = node
 # print("Before delete all recursive: ", l.head.data)
 # l.delete_all_nodes_recursive()
 # print("After delete all recursive: ", l.head)
-l.insert_tail(8)
-l.insert_tail(9)
-print("Size iteratively: ", l.get_size_iteratively())
-print("Size recursively>>: ", l.get_size_recursively())
 
-print("search iteratively: ", l.search_iteratively(9))
-print("search recursively: ", l.search_recursively(4))
+# l.insert_tail(8)
+# l.insert_tail(9)
+# print("Size iteratively: ", l.get_size_iteratively())
+# print("Size recursively>>: ", l.get_size_recursively())
+
+# print("search iteratively: ", l.search_iteratively(9))
+# print("search recursively: ", l.search_recursively(4))
+
+
+# l.reverse_recursively(l.head, None)
+# print("traverse:", l.traverse())
+
+l.reverse_iteratively()
+print("traverse:", l.traverse())

@@ -57,6 +57,30 @@ class LinkedList2(LinkedList):
             self.head = self.head.next
         return nodes
 
+    def reverse_in_place_recursively(self):
+        if not self.head:
+            return None
+        # pointer trackers
+        node = self.head
+        node.head = self.tail
+        node.tail = node
+        # stores the previous node
+        prev = None
+        # stores the next node
+        next = None
+        # base case
+        if not node.head:
+            return node
+        # recursive case
+        next = node.next
+        # current node points to the previous one - None in the case of the first node
+        node.next = prev
+        # "increment previous node" - previous node points to the
+        prev = node
+        # "increment node" current node points to the next one
+        node = next
+        return reverse_in_place_recursively(node)
+
 x = Node(4)
 ll = LinkedList2()
 ll.head = x
@@ -66,4 +90,5 @@ ll.insert_head(6)
 ll.insert_head(7)
 
 print(">>>>>\n\n\n")
-ll.reverse_in_place_iterative()
+ll.reverse_in_place_recursively()
+print(ll.traverse())
