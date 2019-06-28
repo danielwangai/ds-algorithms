@@ -216,6 +216,19 @@ class LinkedList:
                 self.hash_table[str(current.data)] = current.data
                 prev = current
             current = current.next
+    
+    def remove_duplicates_unsorted_recursive(self, current, prev):
+        if not current:
+            return None
+        if str(current.data) not in self.hash_table.keys():
+            self.hash_table[str(current.data)] = current.data
+            prev = current
+            current = current.next
+            self.remove_duplicates_unsorted_recursive(current, prev)
+        else:
+            prev.next = current.next
+            self.remove_duplicates_unsorted_recursive(current.next, prev)
+        return current
 
 
 node = Node(3)
