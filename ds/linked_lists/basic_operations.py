@@ -7,6 +7,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.hash_table = {}
 
     def insert_head(self, data):
         """
@@ -192,7 +193,7 @@ class LinkedList:
         curr.next = prev
         return self.reverse_recursively(next, curr)
 
-    def remove_duplicates_unsorted(self):
+    def remove_duplicates_unsorted_iterative(self):
         """
         TODO: FIX
         use hash table
@@ -206,17 +207,13 @@ class LinkedList:
         if not self.head:
             return None
         current = self.head
-        hash_table = {}
         prev = None
         while(current):
-            current = current.next
-            if str(current.data) in hash_table.keys():
-                next = current.next
+            if str(current.data) in self.hash_table.keys():
                 prev.next = current.next
-                prev = next
             else:
                 # add current.data to the hash table
-                hash_table[str(current.data)] = current.data
+                self.hash_table[str(current.data)] = current.data
                 prev = current
             current = current.next
 
@@ -228,8 +225,14 @@ l = LinkedList()
 l.head = node
 l.insert_head(8)
 l.insert_head(4)
+l.insert_head(4)
+l.insert_head(4)
+l.insert_head(4)
+l.insert_head(4)
 l.insert_head(8)
 l.insert_head(9)
+l.insert_head(8)
+l.insert_head(8)
 l.insert_head(8)
 # print("traverse: ", l.traverse())
 # l.reverse_in_place_iterative()
@@ -279,5 +282,8 @@ l.insert_head(8)
 # l.reverse_iteratively()
 # print("traverse:", l.traverse())
 
-l.remove_duplicates_unsorted()
-print("traverse:", l.traverse())
+
+# l.remove_duplicates_unsorted_iterative()
+
+# l.remove_duplicates_unsorted_recursive(l.head, None)
+# print("traverse:", l.traverse())
