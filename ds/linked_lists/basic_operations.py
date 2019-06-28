@@ -192,14 +192,45 @@ class LinkedList:
         curr.next = prev
         return self.reverse_recursively(next, curr)
 
+    def remove_duplicates_unsorted(self):
+        """
+        TODO: FIX
+        use hash table
+        Algorithm:
+            - loop through link list
+                - if node.data is in hash table
+                    -> delete current node
+                - else
+                    -> push node.data to hash table
+        """
+        if not self.head:
+            return None
+        current = self.head
+        hash_table = {}
+        prev = None
+        while(current):
+            current = current.next
+            if str(current.data) in hash_table.keys():
+                next = current.next
+                prev.next = current.next
+                prev = next
+            else:
+                # add current.data to the hash table
+                hash_table[str(current.data)] = current.data
+                prev = current
+            current = current.next
+
 
 node = Node(3)
-node2 = Node(4)
-node.next = node2
+# node2 = Node(4)
+# node.next = node2
 l = LinkedList()
 l.head = node
 l.insert_head(8)
+l.insert_head(4)
+l.insert_head(8)
 l.insert_head(9)
+l.insert_head(8)
 # print("traverse: ", l.traverse())
 # l.reverse_in_place_iterative()
 # insert 6 at tail
@@ -245,5 +276,8 @@ l.insert_head(9)
 # l.reverse_recursively(l.head, None)
 # print("traverse:", l.traverse())
 
-l.reverse_iteratively()
+# l.reverse_iteratively()
+# print("traverse:", l.traverse())
+
+l.remove_duplicates_unsorted()
 print("traverse:", l.traverse())
