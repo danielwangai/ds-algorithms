@@ -33,7 +33,7 @@ class LinkedList2(LinkedList):
             return None
         node = self.head
         self.head = self.tail
-        self.tail = node
+        # self.tail = node
         prev = None
         next = None
         while(node is not None):
@@ -43,19 +43,6 @@ class LinkedList2(LinkedList):
             node = next
             print(">> ", prev.data)
         return node
-
-    def traverse(self):
-        """
-        go through each node once
-        complexity: O(n)
-        """
-        if not self.head:
-            return None
-        nodes = []
-        while(self.head):
-            nodes.append(self.head.data)
-            self.head = self.head.next
-        return nodes
 
     def reverse_in_place_recursively(self):
         if not self.head:
@@ -81,6 +68,40 @@ class LinkedList2(LinkedList):
         node = next
         return reverse_in_place_recursively(node)
 
+def is_identical_iterative(l1, l2):
+    """
+    compares if linked lists l1 and l2 are identical:
+    linked lists are identical if they botth have the same amount
+    of nodes and each node has the same value in the smae order.
+    complexity: O(n)
+    """
+    if not l1 or not l2:
+        return False
+    l1 = l1.head
+    l2 = l2.head
+    while(l1 != None and l2 != None):
+        if l1.data == l2.data:
+            l1 = l1.next
+            l2 = l2.next
+            continue
+        return False
+    return (l1 == None and l2 == None)
+
+def is_identical_recursive(l1, l2):
+    """
+    compares if linked lists l1 and l2 are identical:
+    linked lists are identical if they botth have the same amount
+    of nodes and each node has the same value in the smae order.
+    complexity: O(n)
+    """
+    if not l1 and not l2:
+        return True
+    # if both are not none, then both MUST have the same data
+    if l1 != None and l2 != None:
+        if l1.data == l2.data:
+            return is_identical_recursive(l1.next, l2.next)
+    return False
+
 x = Node(4)
 ll = LinkedList2()
 ll.head = x
@@ -89,6 +110,22 @@ ll.insert_head(5)
 ll.insert_head(6)
 ll.insert_head(7)
 
+
 print(">>>>>\n\n\n")
-ll.reverse_in_place_recursively()
-print(ll.traverse())
+# ll.reverse_in_place_recursively()
+# ll.reverse_in_place_iterative()
+# print(ll.traverse())
+
+"""
+UNCOMMENT TO RUN
+y = Node(4)
+ll2 = LinkedList2()
+ll2.head = y
+ll2.insert_head(4)
+ll2.insert_head(5)
+ll2.insert_head(6)
+ll2.insert_head(7)
+ll2.insert_head(7)
+print(is_identical_iterative(ll.head, ll2.head))
+print(is_identical_recursive(ll.head, ll2.head))
+"""
