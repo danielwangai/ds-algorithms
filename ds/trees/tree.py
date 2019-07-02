@@ -61,6 +61,21 @@ class Node(object):
                         self.left = Node(number)
                         break
 
+    def bfs(self):
+        if not self:
+            return None
+        queue = []
+        data = []
+        queue.append(self)
+        while(queue):
+            num = queue.pop()
+            data.append(num.data)
+            if num.left:
+                queue.append(num.left)
+            if num.right:
+                queue.append(num.right)
+        print(queue, data)
+
 
 node = Node(4)
 # insert(node, 4)
@@ -78,4 +93,13 @@ node.insert_iterative(3)
 node.insert_iterative(2)
 node.insert_iterative(1)
 print(node.left.left.data)
+"""
+
+"""
+TEST BFS traversal
+node.insert_iterative(0)
+node.insert_iterative(2)
+node.insert_iterative(3)
+node.insert_iterative(1)
+node.bfs()
 """
