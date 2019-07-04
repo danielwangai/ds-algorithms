@@ -77,6 +77,17 @@ class Node(object):
         print(queue, data)
 
 
+def validate_bst(root):
+    return validate_bst_helper(root, float("-inf"), float("inf"))
+
+def validate_bst_helper(root, min_val, max_val):
+    if not root:
+        return True
+    if min_val < root.data and max_val > root.data:
+        return validate_bst_helper(root.left, min_val, root.data) and validate_bst_helper(root.right, root.data, max_val)
+    return False
+
+
 node = Node(4)
 # insert(node, 4)
 """
@@ -102,4 +113,17 @@ node.insert_iterative(2)
 node.insert_iterative(3)
 node.insert_iterative(1)
 node.bfs()
+"""
+
+"""
+VALIDATE BST
+node.insert_iterative(0)
+node.insert_iterative(2)
+node.insert_iterative(3)
+node.insert_iterative(1)
+print(validate_bst(node))
+
+node2 = Node(7)
+node2.left = Node(8)
+print(validate_bst(node2))
 """
