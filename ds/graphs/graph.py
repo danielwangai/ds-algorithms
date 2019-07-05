@@ -40,7 +40,7 @@ class Graph:
 
     def bfs_traversal(self, start_node):
         """
-        uses queue(FIFO) data structure
+        uses queue a FIFO data structure
         """
         if start_node not in self.adjacency_list.keys():
             return None
@@ -59,6 +59,25 @@ class Graph:
                 if edge not in visited.keys():
                     queue.append(edge)
 
+    def dfs_traversal(self, start_node):
+        """
+        uses stack a LIFO data structure
+        """
+        if start_node not in self.adjacency_list.keys():
+            return None
+        stack = []
+        visited = {}
+        stack.append(start_node)
+        while(stack):
+            vertex = stack.pop()
+            if vertex not in visited.keys():
+                visited[vertex] = True
+                print(vertex)
+            # check adjacent nodes and add them to the stack if present
+            for edge in self.adjacency_list[vertex]:
+                if edge not in stack:
+                    stack.append(edge)
+
 
 """
 # uncomment to run
@@ -74,6 +93,21 @@ graph.add_edge_undirected("Nairobi", "Kisumu")
 graph.add_edge_directed("Kisumu", "Mombasa")
 print(graph.adjacency_list)
 
+graph.add_vertex("Eldoret")
+graph.add_vertex("Maasai Mara")
+graph.add_edge_undirected("Kisumu", "Eldoret")
+
+graph.add_vertex("Maralal")
+graph.add_vertex("Kisii")
+
+graph.add_edge_directed("Eldoret", "Maralal")
+graph.add_edge_directed("Mombasa", "Maralal")
+graph.add_edge_directed("Maralal", "Maasai Mara")
+graph.add_edge_directed("Nairobi", "Maasai Mara")
+
 # bfs traversal
+graph.bfs_traversal("Nairobi")
+
+print("DFS TRAVERSAL\n")
 graph.bfs_traversal("Nairobi")
 """
