@@ -38,6 +38,28 @@ class Graph:
         if vertex_b not in self.adjacency_list[vertex_a]:
             self.adjacency_list[vertex_a].append(vertex_b)
 
+    def bfs_traversal(self, start_node):
+        """
+        uses queue(FIFO) data structure
+        """
+        if start_node not in self.adjacency_list.keys():
+            return None
+        visited = {}
+        queue = []
+        # push start node to queue
+        queue.append(start_node)
+        while(queue):
+            # remove from queue i.e. first vertex on queue
+            vertex = queue.pop(0)
+            # check if vertex is already visited
+            if vertex not in visited.keys():
+                visited[vertex] = True
+                print(vertex)
+            for edge in self.adjacency_list[vertex]:
+                if edge not in visited.keys():
+                    queue.append(edge)
+
+
 """
 # uncomment to run
 
@@ -48,6 +70,10 @@ print(graph.adjacency_list)
 graph.add_edge_undirected("Nairobi", "Mombasa")
 print(graph.adjacency_list)
 graph.add_vertex("Kisumu")
+graph.add_edge_undirected("Nairobi", "Kisumu")
 graph.add_edge_directed("Kisumu", "Mombasa")
 print(graph.adjacency_list)
+
+# bfs traversal
+graph.bfs_traversal("Nairobi")
 """
